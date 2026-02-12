@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine? 💖</title>
+
+<style>
+    /* Floating hearts */
+.floating-heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+body{
+  margin:0;
+  height:100vh;
+  font-family: Arial, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+@media (max-width: 768px){
+  .background{
+    column-count: 2;
+  }
+/* COLLAGE BACKGROUND */
+/* iPhone-first clean background */
+.background{
+  position:fixed;
+  inset:0;
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:10px;
+  padding:10px;
+  z-index:-2;
+}
+
+.background img{
+  width:100%;
+  aspect-ratio: 1 / 1;     /* perfect squares */
+  object-fit: cover;        /* fills tile nicely */
+  border-radius:14px;
+  filter: brightness(0.65) saturate(0.9);
+}
+
+/* Romantic overlay */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(255, 105, 180, 0.30);
+  backdrop-filter: blur(4px);
+  z-index:-1;
+}
+
+.card{
+  background:white;
+  padding:30px;
+  border-radius:18px;
+  width:min(420px,92vw);
+  box-shadow:0 12px 30px rgba(0,0,0,.3);
+  text-align:center;
+
+  /* Fade-in animation */
+  animation: fadeIn 1.5s ease forwards;
+  opacity: 0;
+}
+
+
+h1{
+  margin-bottom:10px;
+}
+
+button{
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+  margin:8px;
+  transition:0.2s;
+}
+
+#yes{
+  background:#ff4d6d;
+  color:white;
+}
+
+#no{
+  background:#eee;
+}
+
+/* Hide success message initially */
+.hidden{
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- COLLAGE IMAGES -->
+<div class="background">
+  <img src="IMG_1459.jpg">
+  <img src="IMG_1658.JPG">
+  <img src="IMG_2875.JPG">
+  <img src="IMG_2980.JPG">
+  <img src="IMG_3052.jpg">
+  <img src="IMG_8118.JPEG">
+  <img src="IMG_9836.JPG">
+  <img src="lp_image (1).jpeg">
+  <img src="lp_image.jpeg">
+</div>
+
+<div class="overlay"></div>
+
+<!-- MAIN CARD -->
+<div class="card">
+
+  <h1 id="title">Hey Beautiful ❤️</h1>
+  <p>I made this just for you...</p>
+
+  <h1>Will you be my Valentine? 💘</h1>
+
+  <div id="btns">
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 😭</button>
+  </div>
+
+  <!-- SUCCESS MESSAGE (HIDDEN AT FIRST) -->
+  <div id="success" class="hidden">
+    <h1>YAYYYYY 💞🥰</h1>
+    <p>Dinner + Dessert of your choice!!!💕</p>
+  </div>
+
+</div>
+
+<script>
+// Floating hearts generator
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.innerText = "💖";
+
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 25) + "px";
+  heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+}, 500);
+
+// PERSONALIZE THIS
+const herName = "Jacquelinita";
+document.getElementById("title").textContent = "Hey " + herName + " ❤️";
+
+const yesBtn = document.getElementById("yes");
+const noBtn = document.getElementById("no");
+
+// Make NO button move
+noBtn.addEventListener("mouseenter", function(){
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.position = "fixed";
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+yesBtn.addEventListener("click", function(){
+
+  document.getElementById("btns").style.display = "none";
+  const success = document.getElementById("success");
+  success.style.display = "block";
+
+  // Heart explosion
+  for(let i = 0; i < 40; i++){
+    const heart = document.createElement("div");
+    heart.innerText = "💘";
+    heart.style.position = "fixed";
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+    heart.style.fontSize = "24px";
+    heart.style.pointerEvents = "none";
+
+    const x = (Math.random() - 0.5) * 600;
+    const y = (Math.random() - 0.5) * 600;
+
+    heart.style.transition = "1s ease-out";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.style.transform = `translate(${x}px, ${y}px)`;
+      heart.style.opacity = "0";
+    }, 10);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 1000);
+  }
+});
+
+</script>
+
+</body>
+</html>
